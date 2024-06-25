@@ -13,7 +13,7 @@ namespace KORE_Contacts_Service.BusinessLogic
 
         public void Add(Contact contact)
         {
-            if(IsEmailNotExists(contact.Email))
+            if(!IsEmailNotExists(contact.Email))
                 return;
 
             contact.Id = GetLastIndex() + 1;
@@ -26,9 +26,6 @@ namespace KORE_Contacts_Service.BusinessLogic
         }
         public void Update(Contact contact)
         {
-            if(IsEmailNotExists(contact.Email))
-                return;
-
             var existingContact = GetContactById(contact.Id);
             
             existingContact.FirstName = contact.FirstName;
