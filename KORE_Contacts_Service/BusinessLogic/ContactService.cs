@@ -1,17 +1,21 @@
-﻿using KORE_Contacts_Service.Models;
+﻿using KORE_Contacts_Service.DB;
+using KORE_Contacts_Service.Models;
 using Microsoft.AspNetCore.Components.Forms;
 
 namespace KORE_Contacts_Service.BusinessLogic
 {
     public class ContactService
     {
-        public static List<Contact> contacts = new List<Contact>();
+         List<Contact> contacts = FakeDb.contacts;
         public ContactService()
-        {            
+        {
         }
 
         public void Add(Contact contact)
         {
+            if(IsEmailNotExists(contact.Email))
+                return;
+
             contact.Id = GetLastIndex() + 1;
             contact.CreatedDate = DateTime.UtcNow;
             contacts.Add(contact);
@@ -22,6 +26,9 @@ namespace KORE_Contacts_Service.BusinessLogic
         }
         public void Update(Contact contact)
         {
+            if(IsEmailNotExists(contact.Email))
+                return;
+
             var existingContact = GetContactById(contact.Id);
             
             existingContact.FirstName = contact.FirstName;
@@ -49,7 +56,17 @@ namespace KORE_Contacts_Service.BusinessLogic
 
         public List<Contact> GetAllContacts()
         {
-            return contacts;
+            return contacts.Where(x => !String.IsNullOrWhiteSpace(x.FirstName) && 
+                                        !String.IsNullOrWhiteSpace(x.LastName) && 
+                                        !String.IsNullOrWhiteSpace(x.Email) && 
+                                        !String.IsNullOrWhiteSpace(x.PhoneNumber))
+                            .OrderBy(x => x.LastName)
+                            .ThenBy(x => x.FirstName).ToList();
+        }
+
+        public bool IsEmailNotExists(string email)
+        {
+            return contacts.Any(x => x.Email != email);
         }
     }
 }

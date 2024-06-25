@@ -36,7 +36,7 @@ namespace KORE_Contacts_Service.Controllers
         }
 
         // PUT api/<Contact>/5
-        [HttpPut]
+        [HttpPut("{id}")]
         public void Put([FromBody] Models.Contact contact)
         {
             contactService.Update(contact);

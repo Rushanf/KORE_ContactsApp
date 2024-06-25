@@ -1,0 +1,42 @@
+<div class="container mt-5">
+  <h1>Contact List</h1>
+  <div class="row mb-3">
+    <div class="col">
+      <button class="btn btn-success" (click)="create()">Create New Contact</button>
+    </div>
+    <div class="col">
+      <input [(ngModel)]="searchTerm" class="form-control" placeholder="Search contacts" (input)="onSearchTermChange()" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <table class="table table-responsive table-striped">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Title</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let contact of filteredContacts | contactFilter:searchTerm">
+            <td>{{ contact.firstName }}</td>
+            <td>{{ contact.lastName }}</td>
+            <td>{{ contact.email }}</td>
+            <td>{{ contact.phoneNumber }}</td>
+            <td>{{ contact.title }}</td>
+            <td>
+              <button class="btn btn-primary btn-sm" (click)="editContact(contact)">Edit</button>
+              <button class="btn btn-danger btn-sm" (click)="deleteContact(contact.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <mat-paginator [length]="filteredCount" [pageSize]="pageSize" [pageSizeOptions]="[10]" (page)="onPageChange($event)">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

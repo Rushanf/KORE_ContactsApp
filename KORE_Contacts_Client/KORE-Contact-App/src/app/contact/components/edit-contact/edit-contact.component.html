@@ -1,0 +1,52 @@
+
+<div class="container mt-5">
+    <h1>Edit Contact</h1>
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input id="firstName" formControlName="firstName" class="form-control" [(ngModel)]="contact.firstName"/>
+        <div *ngIf="contactForm.get('firstName')?.invalid && contactForm.get('firstName')?.touched" class="text-danger">
+          First name is required.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input id="lastName" formControlName="lastName" class="form-control"  [(ngModel)]="contact.lastName"/>
+        <div *ngIf="contactForm.get('lastName')?.invalid && contactForm.get('lastName')?.touched" class="text-danger">
+          Last name is required.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" class="form-control" [(ngModel)]="contact.email"/>
+        <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" class="text-danger">
+          Valid email is required.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="phoneNumber">Phone</label>
+        <input id="phoneNumber" formControlName="phoneNumber" class="form-control" [(ngModel)]="contact.phoneNumber"/>
+        <div *ngIf="contactForm.get('phoneNumber')?.invalid && contactForm.get('phoneNumber')?.touched" class="text-danger">
+          Phone number is required.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input id="title" formControlName="title" class="form-control" [(ngModel)]="contact.title"/>
+        <div *ngIf="contactForm.get('title')?.invalid && contactForm.get('title')?.touched" class="text-danger">
+          Title is required.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="middleInitial">Middle Initial</label>
+        <input id="middleInitial" formControlName="middleInitial" class="form-control" [(ngModel)]="contact.middleInitial"/>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="contactForm.invalid">Save</button>
+    </form>
+</div>
