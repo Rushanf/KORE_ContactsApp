@@ -1,0 +1,6 @@
+@KORE_ContentManagement_HostAddress = http://localhost:5224
+
+GET {{KORE_ContentManagement_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
